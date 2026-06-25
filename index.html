@@ -482,28 +482,28 @@ select.fi option{background:#fff;}
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NOMBRE COMPLETO</label><input type="text" name="nombre" id="nombreInput" class="fi" placeholder="Tu nombre" required></div>
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">WHATSAPP</label>
           <div style="display:grid;grid-template-columns:110px 1fr;gap:8px;">
-            <select class="fi" id="countryCode" required>
-              <option value="+1" data-country="US">🇺🇸 +1</option>
-              <option value="+52" data-country="MX" selected>🇲🇽 +52</option>
-              <option value="+54" data-country="AR">🇦🇷 +54</option>
-              <option value="+55" data-country="BR">🇧🇷 +55</option>
-              <option value="+56" data-country="CL">🇨🇱 +56</option>
-              <option value="+57" data-country="CO">🇨🇴 +57</option>
-              <option value="+58" data-country="VE">🇻🇪 +58</option>
-              <option value="+34" data-country="ES">🇪🇸 +34</option>
-              <option value="+591" data-country="BO">🇧🇴 +591</option>
-              <option value="+593" data-country="EC">🇪🇨 +593</option>
-              <option value="+595" data-country="PY">🇵🇾 +595</option>
-              <option value="+598" data-country="UY">🇺🇾 +598</option>
-              <option value="+51" data-country="PE">🇵🇪 +51</option>
-              <option value="+506" data-country="CR">🇨🇷 +506</option>
-              <option value="+507" data-country="PA">🇵🇦 +507</option>
-              <option value="+503" data-country="SV">🇸🇻 +503</option>
-              <option value="+502" data-country="GT">🇬🇹 +502</option>
-              <option value="+504" data-country="HN">🇭🇳 +504</option>
-              <option value="+505" data-country="NI">🇳🇮 +505</option>
+            <select name="country" class="fi" id="countryCode" required>
+              <option value="US" data-code="+1">🇺🇸 +1</option>
+              <option value="MX" data-code="+52" selected>🇲🇽 +52</option>
+              <option value="AR" data-code="+54">🇦🇷 +54</option>
+              <option value="BR" data-code="+55">🇧🇷 +55</option>
+              <option value="CL" data-code="+56">🇨🇱 +56</option>
+              <option value="CO" data-code="+57">🇨🇴 +57</option>
+              <option value="VE" data-code="+58">🇻🇪 +58</option>
+              <option value="ES" data-code="+34">🇪🇸 +34</option>
+              <option value="BO" data-code="+591">🇧🇴 +591</option>
+              <option value="EC" data-code="+593">🇪🇨 +593</option>
+              <option value="PY" data-code="+595">🇵🇾 +595</option>
+              <option value="UY" data-code="+598">🇺🇾 +598</option>
+              <option value="PE" data-code="+51">🇵🇪 +51</option>
+              <option value="CR" data-code="+506">🇨🇷 +506</option>
+              <option value="PA" data-code="+507">🇵🇦 +507</option>
+              <option value="SV" data-code="+503">🇸🇻 +503</option>
+              <option value="GT" data-code="+502">🇬🇹 +502</option>
+              <option value="HN" data-code="+504">🇭🇳 +504</option>
+              <option value="NI" data-code="+505">🇳🇮 +505</option>
             </select>
-            <input type="tel" id="phoneInput" class="fi" placeholder="300 000 0000" required>
+            <input type="tel" name="phone" id="phoneInput" class="fi" placeholder="300 000 0000" required>
           </div>
         </div>
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NEGOCIO</label><input type="text" name="negocio" id="negocioInput" class="fi" placeholder="Nombre de tu empresa" required></div>
@@ -592,26 +592,20 @@ if(formEl&&floatCta){
 
 // ── Detección automática de país para country picker ──
 const countryCodeSelect=document.getElementById('countryCode');
-const COUNTRY_MAP={
-  'US':'+1','MX':'+52','AR':'+54','BR':'+55','CL':'+56',
-  'CO':'+57','VE':'+58','ES':'+34','BO':'+591','EC':'+593',
-  'PY':'+595','UY':'+598','PE':'+51','CR':'+506','PA':'+507',
-  'SV':'+503','GT':'+502','HN':'+504','NI':'+505'
-};
 
 if(countryCodeSelect){
   // Detección automática por IP
   fetch('https://ipapi.co/json/')
     .then(res=>res.json())
     .then(data=>{
-      const code=COUNTRY_MAP[data.country_code];
-      if(code){
-        countryCodeSelect.value=code;
+      const countryISO=data.country_code;
+      if(countryISO){
+        countryCodeSelect.value=countryISO;
       }
     })
     .catch(()=>{
       // Si falla, mantener México por defecto
-      countryCodeSelect.value='+52';
+      countryCodeSelect.value='MX';
     });
 }
 
@@ -619,37 +613,30 @@ if(countryCodeSelect){
 function submitGHLForm(event){
   event.preventDefault();
 
-  const nombre=document.getElementById('nombreInput').value;
-  const countryCode=document.getElementById('countryCode').value;
-  const phoneNumber=document.getElementById('phoneInput').value;
-  const negocio=document.getElementById('negocioInput').value;
-  const leads=document.getElementById('leadsInput').value;
+  const form=document.getElementById('ghlForm');
+  const countrySelect=document.getElementById('countryCode');
+  const phoneInput=document.getElementById('phoneInput');
 
-  // Obtener código ISO del país
-  const selectedOption=countryCodeSelect.options[countryCodeSelect.selectedIndex];
-  const country=selectedOption.getAttribute('data-country');
+  // Obtener código telefónico del país seleccionado
+  const selectedOption=countrySelect.options[countrySelect.selectedIndex];
+  const phoneCode=selectedOption.getAttribute('data-code');
 
-  // Combinar código de país + número
-  const phone=countryCode+phoneNumber.replace(/\s/g,'');
+  // Combinar código + número y actualizar el input antes de enviar
+  const phoneNumber=phoneInput.value.replace(/\s/g,'');
+  phoneInput.value=phoneCode+phoneNumber;
 
-  // Crear FormData
-  const formData=new URLSearchParams();
-  formData.append('name',nombre);
-  formData.append('phone',phone);
-  formData.append('country',country);
-  formData.append('negocio',negocio);
-  formData.append('leads',leads);
+  // Crear FormData desde el formulario
+  const formData=new FormData(form);
 
   // Enviar a GoHighLevel
   fetch('https://services.leadconnectorhq.com/hooks/dOdKg7lRbJNOawBVXaBc/webhook-trigger/b8afb745-99cd-407d-b924-58304ddc8051',{
     method:'POST',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:formData.toString()
+    body:new URLSearchParams(formData)
   })
   .then(res=>res.json())
   .then(data=>{
     alert('¡Gracias! Nos pondremos en contacto contigo pronto.');
-    document.getElementById('ghlForm').reset();
+    form.reset();
   })
   .catch(err=>{
     alert('Hubo un error. Por favor intenta de nuevo.');
