@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Acris IA — Sistema de ventas con IA. Tu agente que responde, califica y agenda por todos tus canales, las 24 horas. Para que tu equipo solo cierre.">
+<title>Acris IA | Sistema de Ventas con IA para Empresas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue:#2563EB;--blue2:#3B82F6;--blue3:#60A5FA;--blued:#1D4ED8;
+  --text:#0A0A0F;--text2:#4B5563;--text3:#9CA3AF;
+  --glass:rgba(255,255,255,0.6);--border:rgba(255,255,255,0.7);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;background:#EEF2FF;}
+.sg{font-family:'Space Grotesk',sans-serif;}
+.wrap{background:linear-gradient(135deg,#EEF2FF 0%,#DBEAFE 35%,#EFF6FF 65%,#E0E7FF 100%);overflow-x:hidden;}
+
+/* GLASS */
+.gc{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:20px;box-shadow:0 8px 32px rgba(37,99,235,0.08),inset 0 1px 0 rgba(255,255,255,0.9);}
+.gcs{background:rgba(255,255,255,0.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.95);border-radius:20px;box-shadow:0 12px 40px rgba(37,99,235,0.1),inset 0 1px 0 #fff;}
+
+/* NAV */
+.nav{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.85);position:sticky;top:0;z-index:100;}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;}
+.logo span{color:var(--blue);}
+.nav-links{display:none;align-items:center;gap:32px;}
+.nav-links a{font-size:14px;color:var(--text2);text-decoration:none;}
+.nav-links a:hover{color:var(--blue);}
+.nav-actions{display:flex;gap:10px;}
+
+/* BUTTONS */
+.btn-b{display:inline-block;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,0.28);transition:transform .15s,box-shadow .15s;}
+.btn-b:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,0.38);}
+.btn-g{display:inline-block;background:rgba(255,255,255,0.65);color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;padding:11px 18px;border-radius:10px;border:1px solid rgba(255,255,255,0.9);text-decoration:none;}
+.btn-w{display:inline-block;background:#fff;color:var(--blue);font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;padding:15px 32px;border-radius:12px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.12);}
+
+/* PILL / LABEL */
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:30px;background:rgba(59,130,246,0.12);border:1px solid rgba(96,165,250,0.4);color:#93C5FD;backdrop-filter:blur(10px);}
+.lbl{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);}
+
+/* SECTIONS */
+.sec{padding:56px 24px;position:relative;z-index:1;}
+.maxw{max-width:1200px;margin:0 auto;}
+
+.stat-n{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:800;line-height:1;letter-spacing:-3px;background:linear-gradient(135deg,var(--blued),var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:20px;}
+.bg{background:#DCFCE7;color:#16A34A;border:1px solid #BBF7D0;}
+.bb{background:#DBEAFE;color:var(--blue);border:1px solid #BFDBFE;}
+
+.fi{width:100%;background:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.95);color:var(--text);border-radius:10px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;}
+.fi:focus{border-color:rgba(37,99,235,0.5);}
+.fi::placeholder{color:var(--text3);}
+select.fi option{background:#fff;}
+
+.vs-x{color:#EF4444;font-size:15px;flex-shrink:0;margin-top:1px;}
+.vs-c{color:#16A34A;font-size:15px;flex-shrink:0;margin-top:1px;}
+.icon-w{stroke:#fff;stroke-width:2;fill:none;}
+
+/* ── HERO ── */
+.hero{background:#0A0E1A;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;top:50%;right:5%;transform:translateY(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(37,99,235,0.28) 0%,rgba(37,99,235,0.08) 40%,transparent 70%);pointer-events:none;}
+.hero-glow2{position:absolute;top:20%;left:0;width:400px;height:400px;background:radial-gradient(circle,rgba(96,165,250,0.15) 0%,transparent 70%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:48px;padding:64px 24px;max-width:1280px;margin:0 auto;}
+.hero-text{text-align:center;}
+.hmetric{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:16px;text-align:center;}
+
+/* VISUALIZACIÓN CEREBRO */
+.viz{position:relative;width:100%;max-width:440px;margin:0 auto;height:420px;display:flex;align-items:center;justify-content:center;}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(59,130,246,0.18);}
+.ring1{width:280px;height:280px;animation:spin 24s linear infinite;}
+.ring2{width:400px;height:400px;border-color:rgba(255,255,255,0.05);animation:spin 36s linear infinite reverse;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.brain{position:absolute;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#60A5FA,#2563EB 55%,#1D4ED8);box-shadow:0 0 70px rgba(37,99,235,0.6),inset 0 0 30px rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;z-index:5;animation:pulse 3.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 70px rgba(37,99,235,0.6),inset 0 0 30px rgba(255,255,255,0.25);}50%{transform:scale(1.06);box-shadow:0 0 95px rgba(37,99,235,0.85),inset 0 0 30px rgba(255,255,255,0.35);}}
+.brain svg{width:68px;height:68px;}
+.node{position:absolute;width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,0.09);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;z-index:6;box-shadow:0 4px 20px rgba(0,0,0,0.35);}
+.node svg{width:24px;height:24px;}
+.node-label{position:absolute;bottom:-17px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.5);white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
+.n1{top:0;left:50%;transform:translateX(-50%);}
+.n2{top:22%;right:4%;}
+.n3{bottom:22%;right:4%;}
+.n4{bottom:0;left:50%;transform:translateX(-50%);}
+.n5{bottom:22%;left:4%;}
+.n6{top:22%;left:4%;}
+.lines{position:absolute;inset:0;z-index:4;pointer-events:none;}
+.lp{stroke:rgba(59,130,246,0.35);stroke-width:1.5;fill:none;stroke-dasharray:4 5;animation:dash 1.6s linear infinite;}
+@keyframes dash{to{stroke-dashoffset:-18;}}
+.dt{fill:#60A5FA;filter:drop-shadow(0 0 5px #3B82F6);}
+
+/* STEPS */
+.step-dot{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 16px rgba(37,99,235,0.3);}
+.step-dot svg{width:26px;height:26px;}
+.step-dot-last{background:linear-gradient(135deg,#1D4ED8,#2563EB);box-shadow:0 4px 16px rgba(29,78,216,0.4);}
+.steps-grid{display:flex;flex-direction:column;gap:24px;position:relative;}
+.step-item{text-align:center;position:relative;z-index:1;}
+
+/* WHATSAPP */
+.ws-w{border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(37,99,235,0.15),0 4px 16px rgba(0,0,0,0.07);max-width:400px;margin:0 auto;}
+.ws-h{background:rgba(255,255,255,0.95);padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(0,0,0,0.06);}
+.ws-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue3));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;}
+.ws-b{background:#E8F0FE;padding:18px 16px;display:flex;flex-direction:column;gap:13px;}
+.ws-bar{background:rgba(255,255,255,0.92);padding:10px 16px;display:flex;gap:10px;align-items:center;}
+.bi{background:#fff;border-radius:4px 16px 16px 16px;padding:10px 14px;max-width:80%;font-size:13px;line-height:1.5;color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.bo{background:linear-gradient(135deg,#1d4ed8,var(--blue));border-radius:16px 4px 16px 16px;padding:10px 14px;max-width:80%;font-size:13px;line-height:1.5;color:#fff;margin-left:auto;box-shadow:0 2px 8px rgba(37,99,235,0.2);}
+.wt{font-size:10px;color:var(--text3);margin-top:3px;}
+.wtr{font-size:10px;color:rgba(255,255,255,0.6);margin-top:3px;text-align:right;}
+.wtg{font-size:9px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.08em;color:var(--blue);margin-bottom:3px;opacity:.85;}
+.wtgg{font-size:9px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.08em;color:#16A34A;margin-bottom:3px;}
+.ws-online{font-size:11px;color:#16A34A;display:flex;align-items:center;gap:4px;}
+.ws-dot{width:6px;height:6px;border-radius:50%;background:#16A34A;display:inline-block;}
+
+/* FLOATING CTA */
+.float-cta{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:420px;z-index:200;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;padding:15px 24px;border-radius:14px;text-align:center;box-shadow:0 8px 24px rgba(37,99,235,0.4);border:1px solid rgba(255,255,255,0.3);text-decoration:none;display:block;transition:opacity .3s,transform .15s;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ════ RESPONSIVE ════ */
+@media(min-width:768px){
+  .nav{padding:18px 60px;}
+  .nav-links{display:flex;}
+  .sec{padding:72px 60px;}
+  .hero-inner{flex-direction:row;align-items:center;gap:60px;padding:90px 60px;}
+  .hero-text{text-align:left;flex:1;}
+  .hero-viz-col{flex:1;}
+  .hero-h1{font-size:52px!important;}
+  .hero-metrics{max-width:440px;}
+  .dolores-grid{grid-template-columns:repeat(3,1fr)!important;}
+  .datos-grid{grid-template-columns:repeat(3,1fr)!important;}
+  .vs-grid{grid-template-columns:1fr 1fr!important;}
+  .caps-grid{grid-template-columns:repeat(3,1fr)!important;}
+  .ws-section{grid-template-columns:1fr 1fr!important;}
+  .steps-grid{flex-direction:row!important;}
+  .steps-line{display:block!important;}
+  .form-grid{grid-template-columns:1fr 1fr!important;}
+  .stat-n{font-size:80px;}
+  .h2-big{font-size:36px!important;}
+  .float-cta{display:none!important;}
+  .close-h2{font-size:48px!important;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="logo">Acris <span>IA</span></div>
+  <div class="nav-links">
+    <a href="#dolores">El problema</a>
+    <a href="#sistema">El sistema</a>
+    <a href="#como">Cómo funciona</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#form" class="btn-g">Ver demo</a>
+    <a href="#form" class="btn-b">Diagnóstico</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <!-- Texto -->
+    <div class="hero-text">
+      <div class="pill" style="margin-bottom:24px;">● Sistema de ventas con IA</div>
+      <h1 class="sg hero-h1" style="font-size:38px;font-weight:800;line-height:1.07;letter-spacing:-1.5px;color:#fff;margin-bottom:20px;">
+        Tu agente de ventas<br>que <span style="color:var(--blue3);">nunca duerme.</span>
+      </h1>
+      <p style="font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;margin:0 auto 32px;">
+        Un sistema con IA que responde, califica y agenda por todos tus canales — en segundos, las 24 horas. Para que tu equipo solo cierre.
+      </p>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:40px;">
+        <a href="#form" class="btn-b" style="font-size:15px;padding:15px 32px;">→ Quiero ver cómo funciona</a>
+        <span style="font-size:13px;color:rgba(255,255,255,0.45);">Diagnóstico gratuito</span>
+      </div>
+      <div class="hero-metrics" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 auto;">
+        <div class="hmetric"><div class="sg" style="font-size:26px;font-weight:800;color:var(--blue3);" data-count="15000" data-suffix="+" data-format="k">+15K</div><div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:4px;">Conversaciones</div></div>
+        <div class="hmetric"><div class="sg" style="font-size:26px;font-weight:800;color:#fff;" data-count="140" data-prefix="+">+140</div><div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:4px;">Citas generadas</div></div>
+        <div class="hmetric"><div class="sg" style="font-size:26px;font-weight:800;color:var(--blue3);">24/7</div><div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:4px;">Sin descanso</div></div>
+      </div>
+    </div>
+
+    <!-- Visualización -->
+    <div class="hero-viz-col">
+      <div class="viz">
+        <div class="ring ring1"></div>
+        <div class="ring ring2"></div>
+        <svg class="lines" viewBox="0 0 440 440" preserveAspectRatio="xMidYMid meet">
+          <path class="lp" d="M220,220 L220,40"/>
+          <path class="lp" d="M220,220 L385,120"/>
+          <path class="lp" d="M220,220 L385,320"/>
+          <path class="lp" d="M220,220 L220,400"/>
+          <path class="lp" d="M220,220 L55,320"/>
+          <path class="lp" d="M220,220 L55,120"/>
+          <circle class="dt" r="3"><animateMotion dur="2s" repeatCount="indefinite" path="M220,220 L220,40"/></circle>
+          <circle class="dt" r="3"><animateMotion dur="2.3s" repeatCount="indefinite" path="M220,220 L385,120"/></circle>
+          <circle class="dt" r="3"><animateMotion dur="2.1s" repeatCount="indefinite" path="M220,220 L385,320"/></circle>
+          <circle class="dt" r="3"><animateMotion dur="2.5s" repeatCount="indefinite" path="M220,220 L220,400"/></circle>
+          <circle class="dt" r="3"><animateMotion dur="2.2s" repeatCount="indefinite" path="M220,220 L55,320"/></circle>
+          <circle class="dt" r="3"><animateMotion dur="2.4s" repeatCount="indefinite" path="M220,220 L55,120"/></circle>
+        </svg>
+        <!-- Cerebro -->
+        <div class="brain">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24A2.5 2.5 0 0 1 9.5 2Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,0.15)"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24A2.5 2.5 0 0 0 14.5 2Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,0.1)"/></svg>
+        </div>
+        <!-- 6 Nodos -->
+        <div class="node n1"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" class="icon-w"/><path d="M3 9h18M8 4v16" class="icon-w"/></svg><span class="node-label">CRM</span></div>
+        <div class="node n2"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" class="icon-w"/></svg><span class="node-label">Mensajes</span></div>
+        <div class="node n3"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" class="icon-w"/></svg><span class="node-label">Teléfono</span></div>
+        <div class="node n4"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" class="icon-w"/><path d="M16 2v4M8 2v4M3 10h18" class="icon-w"/></svg><span class="node-label">Calendario</span></div>
+        <div class="node n5"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" class="icon-w"/><circle cx="12" cy="7" r="4" class="icon-w"/></svg><span class="node-label">Vendedor</span></div>
+        <div class="node n6"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3" class="icon-w"/><circle cx="6" cy="12" r="3" class="icon-w"/><circle cx="18" cy="19" r="3" class="icon-w"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" class="icon-w"/></svg><span class="node-label">Redes</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOLORES ══ -->
+<section id="dolores" class="sec">
+  <div class="maxw">
+    <div class="lbl reveal" style="margin-bottom:16px;text-align:center;">¿Te identificas?</div>
+    <h2 class="sg h2-big reveal" style="font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:40px;text-align:center;">Tu negocio no tiene un problema de ventas.<br><span style="color:var(--blue);">Tiene un problema de proceso.</span></h2>
+    <div class="dolores-grid reveal" style="display:grid;grid-template-columns:1fr;gap:14px;">
+      <div class="gc" style="padding:22px;display:flex;gap:14px;align-items:flex-start;"><div style="width:9px;height:9px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;box-shadow:0 0 8px rgba(37,99,235,0.5);"></div><p style="font-size:14px;color:var(--text2);line-height:1.6;">Pagas ads pero los leads no se convierten en ventas</p></div>
+      <div class="gc" style="padding:22px;display:flex;gap:14px;align-items:flex-start;"><div style="width:9px;height:9px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;box-shadow:0 0 8px rgba(37,99,235,0.5);"></div><p style="font-size:14px;color:var(--text2);line-height:1.6;">Tu equipo pierde tiempo con personas que nunca van a comprar</p></div>
+      <div class="gc" style="padding:22px;display:flex;gap:14px;align-items:flex-start;"><div style="width:9px;height:9px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;box-shadow:0 0 8px rgba(37,99,235,0.5);"></div><p style="font-size:14px;color:var(--text2);line-height:1.6;">El lead dijo "lo pienso" y nunca más supo de él</p></div>
+      <div class="gc" style="padding:22px;display:flex;gap:14px;align-items:flex-start;"><div style="width:9px;height:9px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;box-shadow:0 0 8px rgba(37,99,235,0.5);"></div><p style="font-size:14px;color:var(--text2);line-height:1.6;">No sabes qué está pasando con cada lead en tiempo real</p></div>
+      <div class="gc" style="padding:22px;display:flex;gap:14px;align-items:flex-start;"><div style="width:9px;height:9px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;box-shadow:0 0 8px rgba(37,99,235,0.5);"></div><p style="font-size:14px;color:var(--text2);line-height:1.6;">Tu competencia responde antes que tú — y cierra antes que tú</p></div>
+      <div style="background:linear-gradient(135deg,rgba(37,99,235,0.1),rgba(96,165,250,0.06));border:1px solid rgba(37,99,235,0.18);border-radius:20px;padding:22px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);"><p class="sg" style="font-size:15px;font-weight:700;line-height:1.5;text-align:center;">Cada punto es facturación que se fue.<br><span style="color:var(--blue);">Y tiene solución.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DATOS ══ -->
+<section class="sec">
+  <div class="maxw">
+    <div class="lbl reveal" style="margin-bottom:32px;text-align:center;">Los números ya lo diagnosticaron</div>
+    <div class="datos-grid" style="display:grid;grid-template-columns:1fr;gap:16px;">
+      <div class="gcs reveal" style="padding:32px 28px;"><div class="stat-n" data-count="80" data-suffix="%">80%</div><p style="font-size:14px;color:var(--text2);margin-top:14px;line-height:1.65;">de los equipos comerciales nunca hace seguimiento después del primer contacto.</p><p style="font-size:12px;color:var(--text3);margin-top:10px;font-style:italic;">El lead que no compró hoy, compra en 3 meses. Pero no contigo.</p></div>
+      <div class="gcs reveal" style="padding:32px 28px;"><div class="stat-n" data-count="60" data-suffix="%">60%</div><p style="font-size:14px;color:var(--text2);margin-top:14px;line-height:1.65;">de las ventas ocurren después del quinto contacto con el prospecto.</p><p style="font-size:12px;color:var(--text3);margin-top:10px;font-style:italic;">¿Cuántos de tus vendedores llegan al segundo?</p></div>
+      <div class="gcs reveal" style="padding:32px 28px;"><div class="stat-n" data-count="85" data-suffix="%">85%</div><p style="font-size:14px;color:var(--text2);margin-top:14px;line-height:1.65;">más probabilidad de cerrar si respondes en los primeros 5 minutos.</p><p style="font-size:12px;color:var(--text3);margin-top:10px;font-style:italic;">Tu competencia que responde primero, cierra primero.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIFERENCIADOR ══ -->
+<section id="sistema" class="sec">
+  <div class="maxw">
+    <div class="lbl reveal" style="margin-bottom:16px;text-align:center;">Por qué no es un bot</div>
+    <h2 class="sg h2-big reveal" style="font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:16px;text-align:center;">Los bots responden mensajes.<br><span style="color:var(--blue);">Acris IA gestiona tu proceso comercial.</span></h2>
+    <p class="reveal" style="font-size:15px;color:var(--text2);line-height:1.65;max-width:600px;margin:0 auto 32px;text-align:center;">Hay cientos de herramientas que automatizan WhatsApp por $20 al mes. Acris IA es otra categoría — IA, automatizaciones y pipeline comercial completo en un solo sistema.</p>
+    <div class="vs-grid reveal" style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:20px;">
+      <div class="gc" style="padding:28px;">
+        <p class="sg" style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;">Bot genérico $20/mes</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:10px;"><span class="vs-x">✗</span><span style="font-size:14px;color:var(--text2);">Solo responde preguntas frecuentes</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-x">✗</span><span style="font-size:14px;color:var(--text2);">Sin calificación ni seguimiento</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-x">✗</span><span style="font-size:14px;color:var(--text2);">No entiende notas de voz</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-x">✗</span><span style="font-size:14px;color:var(--text2);">No hace llamadas ni reactiva leads</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-x">✗</span><span style="font-size:14px;color:var(--text2);">Cero visibilidad del proceso comercial</span></div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(37,99,235,0.1),rgba(96,165,250,0.05));border:1.5px solid rgba(37,99,235,0.3);border-radius:20px;padding:28px;backdrop-filter:blur(20px);">
+        <p class="sg" style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;">Acris IA</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:10px;"><span class="vs-c">✓</span><span style="font-size:14px;color:var(--text);">Califica, agenda y hace seguimiento automático</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-c">✓</span><span style="font-size:14px;color:var(--text);">Pipeline comercial completo integrado</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-c">✓</span><span style="font-size:14px;color:var(--text);">Procesa audios y hace llamadas con IA</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-c">✓</span><span style="font-size:14px;color:var(--text);">Seguimiento y reactivación perpetua</span></div>
+          <div style="display:flex;gap:10px;"><span class="vs-c">✓</span><span style="font-size:14px;color:var(--text);">Dashboard en tiempo real de tu equipo</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="gcs reveal" style="padding:22px;text-align:center;"><p class="sg" style="font-size:15px;font-weight:700;">No automatizamos mensajes. <span style="color:var(--blue);">Automatizamos tu proceso comercial completo.</span></p></div>
+  </div>
+</section>
+
+<!-- ══ CAPACIDADES ══ -->
+<section class="sec">
+  <div class="maxw">
+    <div class="lbl reveal" style="margin-bottom:16px;text-align:center;">Capacidades del sistema</div>
+    <h2 class="sg h2-big reveal" style="font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:40px;text-align:center;">Un sistema que trabaja<br><span style="color:var(--blue);">mientras tú cierras.</span></h2>
+    <div class="caps-grid reveal" style="display:grid;grid-template-columns:1fr;gap:14px;">
+      <div class="gc" style="padding:24px;"><div style="font-size:26px;margin-bottom:12px;">⚡</div><p class="sg" style="font-size:15px;font-weight:700;margin-bottom:8px;">Responde en segundos</p><p style="font-size:13px;color:var(--text2);line-height:1.6;">A las 2am, fin de semana, temporada alta. Cada lead atendido de inmediato.</p></div>
+      <div class="gc" style="padding:24px;"><div style="font-size:26px;margin-bottom:12px;">🎙</div><p class="sg" style="font-size:15px;font-weight:700;margin-bottom:8px;">Entiende notas de voz</p><p style="font-size:13px;color:var(--text2);line-height:1.6;">Procesa audios de WhatsApp y responde con contexto completo.</p><div class="badge bb" style="margin-top:12px;font-size:9px;">Exclusivo Acris IA</div></div>
+      <div class="gc" style="padding:24px;"><div style="font-size:26px;margin-bottom:12px;">📞</div><p class="sg" style="font-size:15px;font-weight:700;margin-bottom:8px;">Hace llamadas con IA</p><p style="font-size:13px;color:var(--text2);line-height:1.6;">Llama, confirma citas y reactiva leads fríos. Solo.</p><div class="badge bb" style="margin-top:12px;font-size:9px;">Exclusivo Acris IA</div></div>
+      <div class="gc" style="padding:24px;"><div style="font-size:26px;margin-bottom:12px;">🔍</div><p class="sg" style="font-size:15px;font-weight:700;margin-bottom:8px;">Califica automáticamente</p><p style="font-size:13px;color:var(--text2);line-height:1.6;">Tu equipo solo recibe prospectos listos para cerrar.</p></div>
+      <div class="gc" style="padding:24px;"><div style="font-size:26px;margin-bottom:12px;">🔁</div><p class="sg" style="font-size:15px;font-weight:700;margin-bottom:8px;">Seguimiento perpetuo</p><p style="font-size:13px;color:var(--text2);line-height:1.6;">Ningún lead se enfría. Nutre y reactiva hasta que esté listo.</p></div>
+      <div class="gc" style="padding:24px;"><div style="font-size:26px;margin-bottom:12px;">📊</div><p class="sg" style="font-size:15px;font-weight:700;margin-bottom:8px;">Visibilidad total</p><p style="font-size:13px;color:var(--text2);line-height:1.6;">Cada lead, cada etapa, el rendimiento de tu equipo. En tiempo real.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MOCKUP WHATSAPP ══ -->
+<section class="sec">
+  <div class="maxw ws-section" style="display:grid;grid-template-columns:1fr;gap:40px;align-items:center;">
+    <div class="reveal">
+      <div class="lbl" style="margin-bottom:16px;">El sistema en acción</div>
+      <h2 class="sg h2-big" style="font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:16px;">Mientras tu equipo duerme,<br><span style="color:var(--blue);">el sistema cierra citas.</span></h2>
+      <p style="font-size:15px;color:var(--text2);line-height:1.65;margin-bottom:24px;">Esta conversación ocurrió a las 2:34am. El lead llegó por pauta. Nadie de tu equipo estaba conectado. El sistema lo atendió, lo calificó y agendó la visita solo.</p>
+      <div class="gcs" style="padding:20px 24px;"><p class="sg" style="font-size:15px;font-weight:700;line-height:1.5;">Tu vendedor llega el jueves con el lead calificado y la cita agendada.<br><span style="color:var(--blue);">Solo tiene que cerrar.</span></p></div>
+    </div>
+    <div class="ws-w reveal" id="wsChat">
+      <div class="ws-h">
+        <div class="ws-avatar">A</div>
+        <div><div class="sg" style="font-size:13px;font-weight:700;">Agente Acris IA</div><div class="ws-online"><span class="ws-dot"></span>En línea ahora</div></div>
+        <div class="badge bg" style="margin-left:auto;font-size:9px;">LIVE 24/7</div>
+      </div>
+      <div class="ws-b" id="wsBody">
+        <div class="ws-msg"><div class="bi">Buenas, vi su publicidad. ¿Cuánto vale instalar un aire para una oficina de 40m²? 🙏</div><div class="wt">2:34am ✓✓</div></div>
+        <div class="ws-msg"><div class="wtg">⚡ Respuesta en 3 segundos</div><div class="bo">¡Hola! Con gusto te ayudo 😊 ¿El espacio es residencial o comercial?</div><div class="wtr">2:34am</div></div>
+        <div class="ws-msg"><div class="bi">Comercial, es una oficina</div><div class="wt">2:35am ✓✓</div></div>
+        <div class="ws-msg"><div class="bo">¿El local tiene salida al exterior para la unidad condensadora?</div><div class="wtr">2:35am</div></div>
+        <div class="ws-msg"><div class="bi" style="display:flex;align-items:center;gap:8px;padding:10px 14px;"><div style="width:28px;height:28px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">🎙</div><div style="flex:1;height:3px;background:#ddd;border-radius:2px;"><div style="width:60%;height:100%;background:var(--blue);border-radius:2px;"></div></div><span style="font-size:11px;color:var(--text3);">0:08</span></div><div class="wt">2:35am ✓✓</div></div>
+        <div class="ws-msg"><div class="wtg">🎙 Nota de voz procesada</div><div class="bo">Entendido, salida exterior ✅ Para 40m² recomendamos 18.000 BTU, incluye equipo e instalación. ¿Te agendo visita técnica sin costo esta semana?</div><div class="wtr">2:36am</div></div>
+        <div class="ws-msg"><div class="bi">Sí, me interesa</div><div class="wt">2:36am ✓✓</div></div>
+        <div class="ws-msg"><div class="wtgg">✅ Lead calificado · Agendando visita</div><div class="bo">Perfecto 🎯 ¿Puedes el jueves a las 10am? Te confirmo y recuerdo el día anterior 🗓</div><div class="wtr">2:36am</div></div>
+      </div>
+      <div class="ws-bar"><div style="flex:1;background:rgba(255,255,255,0.85);border-radius:20px;padding:8px 16px;font-size:12px;color:var(--text3);">Escribe un mensaje...</div><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));display:flex;align-items:center;justify-content:center;font-size:16px;">🎙</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESO ══ -->
+<section id="como" class="sec">
+  <div class="maxw">
+    <div class="lbl reveal" style="margin-bottom:16px;text-align:center;">Cómo funciona</div>
+    <h2 class="sg h2-big reveal" style="font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:40px;text-align:center;">De lead a cita agendada.<br><span style="color:var(--blue);">Sin intervención humana.</span></h2>
+    <div class="steps-grid reveal">
+      <div class="steps-line" style="display:none;position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--blue3),var(--blue),var(--blued));z-index:0;"></div>
+      <div class="step-item" style="flex:1;padding:0 12px;">
+        <div class="step-dot"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" class="icon-w"/></svg></div>
+        <div class="badge bb" style="font-size:9px;margin-bottom:10px;">01</div>
+        <p class="sg" style="font-size:14px;font-weight:700;margin-bottom:6px;">Lead entra</p>
+        <p style="font-size:12px;color:var(--text2);line-height:1.5;">WhatsApp, formulario o Instagram. A cualquier hora.</p>
+      </div>
+      <div class="step-item" style="flex:1;padding:0 12px;">
+        <div class="step-dot"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" class="icon-w"/></svg></div>
+        <div class="badge bb" style="font-size:9px;margin-bottom:10px;">02</div>
+        <p class="sg" style="font-size:14px;font-weight:700;margin-bottom:6px;">Respuesta inmediata</p>
+        <p style="font-size:12px;color:var(--text2);line-height:1.5;">Responde en segundos. Entiende texto y voz.</p>
+      </div>
+      <div class="step-item" style="flex:1;padding:0 12px;">
+        <div class="step-dot"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" class="icon-w"/><path d="M21 21l-4.35-4.35" class="icon-w"/></svg></div>
+        <div class="badge bb" style="font-size:9px;margin-bottom:10px;">03</div>
+        <p class="sg" style="font-size:14px;font-weight:700;margin-bottom:6px;">Calificación</p>
+        <p style="font-size:12px;color:var(--text2);line-height:1.5;">Clasifica al prospecto según tus criterios.</p>
+      </div>
+      <div class="step-item" style="flex:1;padding:0 12px;">
+        <div class="step-dot"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3" class="icon-w"/></svg></div>
+        <div class="badge bb" style="font-size:9px;margin-bottom:10px;">04</div>
+        <p class="sg" style="font-size:14px;font-weight:700;margin-bottom:6px;">Seguimiento</p>
+        <p style="font-size:12px;color:var(--text2);line-height:1.5;">Nutre y reactiva hasta que el lead esté listo.</p>
+      </div>
+      <div class="step-item" style="flex:1;padding:0 12px;">
+        <div class="step-dot step-dot-last"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" class="icon-w"/></svg></div>
+        <div class="badge bb" style="font-size:9px;margin-bottom:10px;">05</div>
+        <p class="sg" style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--blued);">Tu vendedor cierra</p>
+        <p style="font-size:12px;color:var(--text2);line-height:1.5;">Recibe el lead caliente con todo el contexto.</p>
+      </div>
+    </div>
+    <div class="gcs reveal" style="padding:22px;text-align:center;margin-top:32px;"><p class="sg" style="font-size:15px;font-weight:700;">El sistema hace el trabajo sucio. <span style="color:var(--blue);">Tu equipo solo cierra.</span></p></div>
+  </div>
+</section>
+
+<!-- ══ FORMULARIO ══ -->
+<section id="form" class="sec" style="padding-bottom:120px;">
+  <div class="maxw form-grid" style="max-width:1000px;display:grid;grid-template-columns:1fr;gap:40px;align-items:start;">
+    <div class="reveal">
+      <div class="lbl" style="margin-bottom:20px;">Empieza hoy</div>
+      <h2 class="sg" style="font-size:30px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;margin-bottom:16px;">Descubre cuánto estás<br><span style="color:var(--blue);">dejando de facturar.</span></h2>
+      <p style="font-size:15px;color:var(--text2);line-height:1.65;margin-bottom:28px;">30 minutos. Demo en vivo. Diagnóstico gratuito de tu proceso comercial. Sin venta a presión.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px;">
+        <div style="display:flex;gap:12px;align-items:center;"><span style="color:#16A34A;font-weight:700;font-size:18px;">✓</span><span style="font-size:14px;color:var(--text2);">Llamada con un fundador de Acris IA</span></div>
+        <div style="display:flex;gap:12px;align-items:center;"><span style="color:#16A34A;font-weight:700;font-size:18px;">✓</span><span style="font-size:14px;color:var(--text2);">Demo en vivo del sistema funcionando</span></div>
+        <div style="display:flex;gap:12px;align-items:center;"><span style="color:#16A34A;font-weight:700;font-size:18px;">✓</span><span style="font-size:14px;color:var(--text2);">Diagnóstico gratuito de tu proceso</span></div>
+      </div>
+      <div class="gc" style="padding:20px 24px;"><p style="font-size:13px;color:var(--text3);line-height:1.6;">Activación garantizada en menos de 2 semanas. El cliente conecta su propio WhatsApp Business — todo lo demás corre sobre nuestra infraestructura.</p></div>
+    </div>
+    <div class="gcs reveal" style="padding:28px;">
+      <!-- NOTA: conectar este action al webhook de GoHighLevel -->
+      <form action="REEMPLAZAR_CON_WEBHOOK_GHL" method="POST" style="display:flex;flex-direction:column;gap:16px;">
+        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NOMBRE COMPLETO</label><input type="text" name="nombre" class="fi" placeholder="Tu nombre" required></div>
+        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">WHATSAPP</label><input type="tel" name="whatsapp" class="fi" placeholder="+57 300 000 0000" required></div>
+        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NEGOCIO</label><input type="text" name="negocio" class="fi" placeholder="Nombre de tu empresa" required></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">LEADS AL MES</label><select name="leads" class="fi" required><option value="">Selecciona</option><option>Menos de 50</option><option>50–200</option><option>200–500</option><option>+500</option></select></div>
+          <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">EQUIPO</label><select name="equipo" class="fi" required><option value="">Selecciona</option><option>1–3</option><option>4–10</option><option>+10</option></select></div>
+        </div>
+        <button type="submit" class="btn-b" style="width:100%;padding:15px;font-size:15px;margin-top:4px;text-align:center;border-radius:12px;">→ Quiero mi diagnóstico gratuito</button>
+        <p style="font-size:11px;color:var(--text3);text-align:center;">Sin permanencia forzada · Activación en 2 semanas</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CIERRE ══ -->
+<div style="background:linear-gradient(135deg,var(--blue),var(--blued));padding:64px 24px;text-align:center;position:relative;z-index:1;">
+  <h2 class="sg close-h2" style="font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:#fff;margin-bottom:14px;">Cada hora sin responder<br>es facturación que se va.</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.75);margin-bottom:36px;line-height:1.6;">No es un problema de tu equipo. Es un problema de sistema. Y tiene solución.</p>
+  <a href="#form" class="btn-w">→ Agenda tu diagnóstico gratuito</a>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div style="padding:22px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.65);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.85);position:relative;z-index:1;">
+  <div class="logo" style="font-size:16px;">Acris <span>IA</span></div>
+  <p style="font-size:11px;color:var(--text3);">Sistema de ventas con IA · acrisdigital.com</p>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- FLOATING CTA (mobile) -->
+<a href="#form" class="float-cta" id="floatCta">→ Diagnóstico gratuito</a>
+
+<script>
+// ── Scroll reveal ──
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.12});
+reveals.forEach(el=>io.observe(el));
+
+// ── Count-up de números ──
+function animateCount(el){
+  const target=parseInt(el.dataset.count);
+  const suffix=el.dataset.suffix||'';
+  const prefix=el.dataset.prefix||'';
+  const format=el.dataset.format||'';
+  let cur=0;const dur=1400;const t0=performance.now();
+  function tick(now){
+    const p=Math.min((now-t0)/dur,1);
+    const eased=1-Math.pow(1-p,3);
+    cur=Math.floor(eased*target);
+    let display=cur;
+    if(format==='k'){display='+'+(cur>=1000?(cur/1000).toFixed(0)+'K':cur);}
+    else{display=prefix+cur+suffix;}
+    el.textContent=display;
+    if(p<1)requestAnimationFrame(tick);
+    else{
+      if(format==='k')el.textContent='+15K';
+      else el.textContent=prefix+target+suffix;
+    }
+  }
+  requestAnimationFrame(tick);
+}
+const countEls=document.querySelectorAll('[data-count]');
+const countIO=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);countIO.unobserve(e.target);}});},{threshold:0.5});
+countEls.forEach(el=>countIO.observe(el));
+
+// ── Mockup WhatsApp: mensajes secuenciales ──
+const wsChat=document.getElementById('wsChat');
+const wsMsgs=document.querySelectorAll('#wsBody .ws-msg');
+wsMsgs.forEach(m=>{m.style.opacity='0';m.style.transform='translateY(10px)';m.style.transition='opacity .4s,transform .4s';});
+let wsPlayed=false;
+const wsIO=new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(e.isIntersecting&&!wsPlayed){
+      wsPlayed=true;
+      wsMsgs.forEach((m,i)=>{setTimeout(()=>{m.style.opacity='1';m.style.transform='translateY(0)';},i*650);});
+      wsIO.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+if(wsChat)wsIO.observe(wsChat);
+
+// ── Floating CTA: ocultar en formulario ──
+const formEl=document.getElementById('form');
+const floatCta=document.getElementById('floatCta');
+if(formEl&&floatCta){
+  const fIO=new IntersectionObserver((es)=>{es.forEach(e=>{floatCta.style.opacity=e.isIntersecting?'0':'1';floatCta.style.pointerEvents=e.isIntersecting?'none':'auto';});},{threshold:0.2});
+  fIO.observe(formEl);
+}
+
+// ── Reacción del cerebro al mouse (solo desktop) ──
+if(window.matchMedia('(min-width:768px)').matches){
+  const viz=document.querySelector('.viz');
+  const brain=document.querySelector('.brain');
+  if(viz&&brain){
+    viz.addEventListener('mousemove',(e)=>{
+      const r=viz.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)/r.width;
+      const y=(e.clientY-r.top-r.height/2)/r.height;
+      brain.style.transform=`translate(${x*12}px,${y*12}px)`;
+    });
+    viz.addEventListener('mouseleave',()=>{brain.style.transform='translate(0,0)';});
+  }
+}
+</script>
+</body>
+</html>
