@@ -478,11 +478,11 @@ select.fi option{background:#fff;}
       <div class="gc" style="padding:20px 24px;"><p style="font-size:13px;color:var(--text3);line-height:1.6;">Activación garantizada en menos de 2 semanas. El cliente conecta su propio WhatsApp Business — todo lo demás corre sobre nuestra infraestructura.</p></div>
     </div>
     <div class="gcs reveal" style="padding:28px;">
-      <form action="https://services.leadconnectorhq.com/hooks/dOdKg7lRbJNOawBVXaBc/webhook-trigger/b8afb745-99cd-407d-b924-58304ddc8051" method="POST" style="display:flex;flex-direction:column;gap:16px;">
-        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NOMBRE COMPLETO</label><input type="text" name="nombre" class="fi" placeholder="Tu nombre" required></div>
+      <form id="ghlForm" onsubmit="return submitGHLForm(event)" style="display:flex;flex-direction:column;gap:16px;">
+        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NOMBRE COMPLETO</label><input type="text" name="nombre" id="nombreInput" class="fi" placeholder="Tu nombre" required></div>
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">WHATSAPP</label>
           <div style="display:grid;grid-template-columns:110px 1fr;gap:8px;">
-            <select name="countryCode" class="fi" id="countryCode" required>
+            <select class="fi" id="countryCode" required>
               <option value="+1" data-country="US">🇺🇸 +1</option>
               <option value="+52" data-country="MX" selected>🇲🇽 +52</option>
               <option value="+54" data-country="AR">🇦🇷 +54</option>
@@ -503,12 +503,11 @@ select.fi option{background:#fff;}
               <option value="+504" data-country="HN">🇭🇳 +504</option>
               <option value="+505" data-country="NI">🇳🇮 +505</option>
             </select>
-            <input type="tel" name="phone" class="fi" placeholder="300 000 0000" required>
+            <input type="tel" id="phoneInput" class="fi" placeholder="300 000 0000" required>
           </div>
-          <input type="hidden" name="country" id="countryISO" value="MX">
         </div>
-        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NEGOCIO</label><input type="text" name="negocio" class="fi" placeholder="Nombre de tu empresa" required></div>
-        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">LEADS AL MES</label><select name="leads" class="fi" required><option value="">Selecciona</option><option>Menos de 50</option><option>50–200</option><option>200–500</option><option>+500</option></select></div>
+        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NEGOCIO</label><input type="text" name="negocio" id="negocioInput" class="fi" placeholder="Nombre de tu empresa" required></div>
+        <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">LEADS AL MES</label><select name="leads" id="leadsInput" class="fi" required><option value="">Selecciona</option><option>Menos de 50</option><option>50–200</option><option>200–500</option><option>+500</option></select></div>
         <button type="submit" class="btn-b" style="width:100%;padding:15px;font-size:15px;margin-top:4px;text-align:center;border-radius:12px;">→ Quiero mi diagnóstico gratuito</button>
         <p style="font-size:11px;color:var(--text3);text-align:center;">Sin permanencia forzada · Activación en 2 semanas</p>
       </form>
@@ -593,7 +592,6 @@ if(formEl&&floatCta){
 
 // ── Detección automática de país para country picker ──
 const countryCodeSelect=document.getElementById('countryCode');
-const countryISO=document.getElementById('countryISO');
 const COUNTRY_MAP={
   'US':'+1','MX':'+52','AR':'+54','BR':'+55','CL':'+56',
   'CO':'+57','VE':'+58','ES':'+34','BO':'+591','EC':'+593',
@@ -601,19 +599,7 @@ const COUNTRY_MAP={
   'SV':'+503','GT':'+502','HN':'+504','NI':'+505'
 };
 
-// Función para actualizar el código ISO cuando cambia el selector
-function updateCountryISO(){
-  const selectedOption=countryCodeSelect.options[countryCodeSelect.selectedIndex];
-  const isoCode=selectedOption.getAttribute('data-country');
-  if(countryISO&&isoCode){
-    countryISO.value=isoCode;
-  }
-}
-
 if(countryCodeSelect){
-  // Actualizar cuando cambia manualmente
-  countryCodeSelect.addEventListener('change',updateCountryISO);
-
   // Detección automática por IP
   fetch('https://ipapi.co/json/')
     .then(res=>res.json())
@@ -621,14 +607,55 @@ if(countryCodeSelect){
       const code=COUNTRY_MAP[data.country_code];
       if(code){
         countryCodeSelect.value=code;
-        updateCountryISO();
       }
     })
     .catch(()=>{
       // Si falla, mantener México por defecto
       countryCodeSelect.value='+52';
-      updateCountryISO();
     });
+}
+
+// ── Submit form a GoHighLevel ──
+function submitGHLForm(event){
+  event.preventDefault();
+
+  const nombre=document.getElementById('nombreInput').value;
+  const countryCode=document.getElementById('countryCode').value;
+  const phoneNumber=document.getElementById('phoneInput').value;
+  const negocio=document.getElementById('negocioInput').value;
+  const leads=document.getElementById('leadsInput').value;
+
+  // Obtener código ISO del país
+  const selectedOption=countryCodeSelect.options[countryCodeSelect.selectedIndex];
+  const country=selectedOption.getAttribute('data-country');
+
+  // Combinar código de país + número
+  const phone=countryCode+phoneNumber.replace(/\s/g,'');
+
+  // Crear FormData
+  const formData=new URLSearchParams();
+  formData.append('name',nombre);
+  formData.append('phone',phone);
+  formData.append('country',country);
+  formData.append('negocio',negocio);
+  formData.append('leads',leads);
+
+  // Enviar a GoHighLevel
+  fetch('https://services.leadconnectorhq.com/hooks/dOdKg7lRbJNOawBVXaBc/webhook-trigger/b8afb745-99cd-407d-b924-58304ddc8051',{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:formData.toString()
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    alert('¡Gracias! Nos pondremos en contacto contigo pronto.');
+    document.getElementById('ghlForm').reset();
+  })
+  .catch(err=>{
+    alert('Hubo un error. Por favor intenta de nuevo.');
+  });
+
+  return false;
 }
 
 // ── Reacción del cerebro al mouse (solo desktop) ──
