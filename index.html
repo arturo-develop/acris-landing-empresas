@@ -482,29 +482,30 @@ select.fi option{background:#fff;}
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NOMBRE COMPLETO</label><input type="text" name="nombre" class="fi" placeholder="Tu nombre" required></div>
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">WHATSAPP</label>
           <div style="display:grid;grid-template-columns:110px 1fr;gap:8px;">
-            <select name="pais" class="fi" id="countryCode" required>
-              <option value="+1">🇺🇸 +1</option>
-              <option value="+52" selected>🇲🇽 +52</option>
-              <option value="+54">🇦🇷 +54</option>
-              <option value="+55">🇧🇷 +55</option>
-              <option value="+56">🇨🇱 +56</option>
-              <option value="+57">🇨🇴 +57</option>
-              <option value="+58">🇻🇪 +58</option>
-              <option value="+34">🇪🇸 +34</option>
-              <option value="+591">🇧🇴 +591</option>
-              <option value="+593">🇪🇨 +593</option>
-              <option value="+595">🇵🇾 +595</option>
-              <option value="+598">🇺🇾 +598</option>
-              <option value="+51">🇵🇪 +51</option>
-              <option value="+506">🇨🇷 +506</option>
-              <option value="+507">🇵🇦 +507</option>
-              <option value="+503">🇸🇻 +503</option>
-              <option value="+502">🇬🇹 +502</option>
-              <option value="+504">🇭🇳 +504</option>
-              <option value="+505">🇳🇮 +505</option>
+            <select name="countryCode" class="fi" id="countryCode" required>
+              <option value="+1" data-country="US">🇺🇸 +1</option>
+              <option value="+52" data-country="MX" selected>🇲🇽 +52</option>
+              <option value="+54" data-country="AR">🇦🇷 +54</option>
+              <option value="+55" data-country="BR">🇧🇷 +55</option>
+              <option value="+56" data-country="CL">🇨🇱 +56</option>
+              <option value="+57" data-country="CO">🇨🇴 +57</option>
+              <option value="+58" data-country="VE">🇻🇪 +58</option>
+              <option value="+34" data-country="ES">🇪🇸 +34</option>
+              <option value="+591" data-country="BO">🇧🇴 +591</option>
+              <option value="+593" data-country="EC">🇪🇨 +593</option>
+              <option value="+595" data-country="PY">🇵🇾 +595</option>
+              <option value="+598" data-country="UY">🇺🇾 +598</option>
+              <option value="+51" data-country="PE">🇵🇪 +51</option>
+              <option value="+506" data-country="CR">🇨🇷 +506</option>
+              <option value="+507" data-country="PA">🇵🇦 +507</option>
+              <option value="+503" data-country="SV">🇸🇻 +503</option>
+              <option value="+502" data-country="GT">🇬🇹 +502</option>
+              <option value="+504" data-country="HN">🇭🇳 +504</option>
+              <option value="+505" data-country="NI">🇳🇮 +505</option>
             </select>
-            <input type="tel" name="whatsapp" class="fi" placeholder="300 000 0000" required>
+            <input type="tel" name="phone" class="fi" placeholder="300 000 0000" required>
           </div>
+          <input type="hidden" name="country" id="countryISO" value="MX">
         </div>
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">NEGOCIO</label><input type="text" name="negocio" class="fi" placeholder="Nombre de tu empresa" required></div>
         <div><label style="display:block;font-size:11px;font-weight:700;color:var(--text3);margin-bottom:7px;letter-spacing:.06em;">LEADS AL MES</label><select name="leads" class="fi" required><option value="">Selecciona</option><option>Menos de 50</option><option>50–200</option><option>200–500</option><option>+500</option></select></div>
@@ -592,24 +593,41 @@ if(formEl&&floatCta){
 
 // ── Detección automática de país para country picker ──
 const countryCodeSelect=document.getElementById('countryCode');
+const countryISO=document.getElementById('countryISO');
 const COUNTRY_MAP={
   'US':'+1','MX':'+52','AR':'+54','BR':'+55','CL':'+56',
   'CO':'+57','VE':'+58','ES':'+34','BO':'+591','EC':'+593',
   'PY':'+595','UY':'+598','PE':'+51','CR':'+506','PA':'+507',
   'SV':'+503','GT':'+502','HN':'+504','NI':'+505'
 };
+
+// Función para actualizar el código ISO cuando cambia el selector
+function updateCountryISO(){
+  const selectedOption=countryCodeSelect.options[countryCodeSelect.selectedIndex];
+  const isoCode=selectedOption.getAttribute('data-country');
+  if(countryISO&&isoCode){
+    countryISO.value=isoCode;
+  }
+}
+
 if(countryCodeSelect){
+  // Actualizar cuando cambia manualmente
+  countryCodeSelect.addEventListener('change',updateCountryISO);
+
+  // Detección automática por IP
   fetch('https://ipapi.co/json/')
     .then(res=>res.json())
     .then(data=>{
       const code=COUNTRY_MAP[data.country_code];
       if(code){
         countryCodeSelect.value=code;
+        updateCountryISO();
       }
     })
     .catch(()=>{
       // Si falla, mantener México por defecto
       countryCodeSelect.value='+52';
+      updateCountryISO();
     });
 }
 
