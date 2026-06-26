@@ -535,19 +535,23 @@ select.fi option{background:#fff;}
 <a href="#form" class="float-cta" id="floatCta">→ Diagnóstico gratuito</a>
 
 <!-- POPUP SUCCESS -->
-<div id="successPopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
-  <div style="background:#fff;border-radius:24px;padding:40px 32px;max-width:440px;margin:0 20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:popIn 0.4s ease-out;">
-    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#10B981,#059669);margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:48px;">✓</div>
-    <h3 class="sg" style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:12px;line-height:1.2;">¡Gracias por tu interés!</h3>
-    <p style="font-size:16px;color:var(--text2);line-height:1.6;margin-bottom:24px;">Pronto nuestro agente de <strong style="color:var(--blue);">Acris IA</strong> te escribirá por WhatsApp...</p>
-    <p style="font-size:18px;font-weight:700;color:var(--blue);margin-bottom:28px;">¡Pruébalo!</p>
-    <button onclick="closeSuccessPopup()" class="btn-b" style="width:100%;padding:14px;font-size:15px;">Entendido</button>
+<div id="successPopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,14,26,0.85);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);">
+  <div class="gcs" style="padding:48px 40px;max-width:500px;margin:0 24px;text-align:center;animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);">
+    <div style="width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(37,99,235,0.35);">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h3 class="sg" style="font-size:32px;font-weight:800;color:var(--text);margin-bottom:16px;line-height:1.1;letter-spacing:-0.5px;">¡Gracias!</h3>
+    <p class="sg" style="font-size:19px;color:var(--text2);line-height:1.6;margin-bottom:8px;font-weight:500;">Pronto nuestro agente de</p>
+    <p class="sg" style="font-size:22px;font-weight:800;color:var(--blue);margin-bottom:8px;letter-spacing:-0.3px;">Acris IA</p>
+    <p class="sg" style="font-size:19px;color:var(--text2);line-height:1.6;margin-bottom:32px;font-weight:500;">te escribirá por WhatsApp...</p>
+    <p class="sg" style="font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:32px;letter-spacing:-0.5px;">¡Pruébalo!</p>
+    <button onclick="closeSuccessPopup()" class="btn-b" style="width:100%;padding:16px;font-size:16px;border-radius:12px;">Entendido</button>
   </div>
 </div>
 <style>
 @keyframes popIn{
-  0%{transform:scale(0.8);opacity:0;}
-  100%{transform:scale(1);opacity:1;}
+  0%{transform:scale(0.85) translateY(20px);opacity:0;}
+  100%{transform:scale(1) translateY(0);opacity:1;}
 }
 </style>
 
