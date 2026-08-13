@@ -10,8 +10,10 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',sans-serif;color:#00203F;-webkit-font-smoothing:antialiased;background:transparent;display:flex;align-items:flex-start;justify-content:center;padding:0;}
 .sg{font-family:'Space Grotesk',sans-serif;}
-.calc{width:100%;max-width:480px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:16px;padding:1.75rem;box-shadow:0 12px 40px rgba(37,99,235,0.1);}
+.calc{width:100%;max-width:480px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:16px;padding:1.75rem;box-shadow:0 12px 40px rgba(0,32,63,0.12);}
 .qstep{animation:fade .3s ease;}
+#s0{min-height:510px;display:flex;flex-direction:column;justify-content:center;}
+.qstep:not(#s0):not(#sForm):not(#sR):not(#sAlert){height:490px;display:flex;flex-direction:column;justify-content:center;}
 @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 input[type=range]{accent-color:#00203F;}
 input:focus{outline:none;border-color:#00203F!important;}
@@ -23,6 +25,8 @@ button{font-family:'Space Grotesk',sans-serif;}
 .nose{width:100%;padding:11px;border-radius:9px;border:1px dashed rgba(255,90,60,0.4);background:rgba(255,90,60,0.05);color:#BE5C3D;font-size:13px;cursor:pointer;margin-top:12px;transition:.18s;}
 .nose:hover{color:#FF5A3C;border-color:rgba(255,90,60,0.7);background:rgba(255,90,60,0.1);}
 .pbtn{width:100%;padding:14px;border-radius:10px;border:none;background:#00203F;color:#fff;font-size:15px;font-weight:500;cursor:pointer;}
+.startbtn{background:#FF5A3C !important;color:#fff !important;font-weight:700 !important;animation:startGlow 2.1s ease-in-out infinite;}
+@keyframes startGlow{0%,100%{box-shadow:0 6px 20px rgba(255,90,60,0.4);}50%{box-shadow:0 8px 40px rgba(255,90,60,0.85);}}
 .num{width:100%;padding:13px;border-radius:8px;background:#fff;color:#00203F;border:1px solid #CBD5E1;font-size:15px;font-family:'Inter',sans-serif;}
 @media(min-width:768px){
   .calc{max-width:640px;padding:2.75rem 3rem;}
@@ -37,12 +41,12 @@ button{font-family:'Space Grotesk',sans-serif;}
 <body>
 <div class="calc">
 
-  <div id="s0" class="qstep">
-    <div class="sg" style="display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#00203F;font-weight:700;background:#DBEAFE;padding:6px 12px;border-radius:20px;margin-bottom:16px;">Test gratis</div>
-    <div class="sg" style="font-size:28px;font-weight:800;line-height:1.15;letter-spacing:-0.5px;margin-bottom:14px;">Descubre cuánta plata se te está escapando en ventas.</div>
-    <p style="font-size:15px;color:#475569;line-height:1.6;margin-bottom:22px;">Con tus propios números.</p>
-    <button onclick="show(1)" class="pbtn">Empezar</button>
-    <p style="font-size:12px;color:#94A3B8;text-align:center;margin-top:12px;">Estimado y anónimo hasta que quieras dejar tus datos.</p>
+  <div id="s0" class="qstep" style="text-align:center;">
+    <div class="sg" style="display:inline-block;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:#00203F;font-weight:700;background:#36ECDE;padding:8px 18px;border-radius:20px;margin-bottom:18px;box-shadow:0 4px 18px rgba(54,236,222,0.6);">Test para tu negocio</div>
+    <div class="sg" style="font-size:26px;font-weight:800;line-height:1.25;letter-spacing:-0.5px;margin-bottom:12px;">En pocos segundos podrás saber, en promedio, cuántas ventas dejas sobre la mesa por no estructurar ni automatizar tu proceso.</div>
+    <p style="font-size:15px;color:#475569;line-height:1.6;margin-bottom:34px;">Con tus propios números.</p>
+    <button onclick="show(1)" class="pbtn startbtn" style="font-size:16px;padding:16px;">Empezar el test →</button>
+    <p style="font-size:12px;color:#94A3B8;margin-top:14px;">Estimado y anónimo hasta que quieras dejar tus datos.</p>
   </div>
 
   <div id="head" style="display:none;">
@@ -55,10 +59,10 @@ button{font-family:'Space Grotesk',sans-serif;}
 
   <div id="s1" class="qstep" style="display:none;">
     <div class="frame">Entrada del embudo</div>
-    <div class="qtitle">¿Sabes cuántas conversaciones recibe tu negocio en WhatsApp en un día promedio?</div>
-    <div style="display:flex;justify-content:space-between;font-size:13px;color:#334155;margin-bottom:6px;"><span>Conversaciones / día</span><span id="oCon" class="sg" style="color:#00203F;font-weight:700;font-size:18px;">15</span></div>
-    <input type="range" id="con" min="1" max="150" step="1" value="15" style="width:100%;">
-    <div style="font-size:12px;color:#94A3B8;margin:.4rem 0 1.4rem;">≈ <span id="oConMes">450</span> conversaciones estimadas al mes</div>
+    <div class="qtitle">¿Cuántas conversaciones recibe tu negocio en WhatsApp en un día promedio?</div>
+    <div class="sg" style="text-align:center;font-size:48px;font-weight:800;color:#00203F;line-height:1;margin-bottom:.5rem;"><span id="oCon">20</span></div>
+    <input type="range" id="con" min="10" max="100" step="1" value="20" style="width:100%;margin-bottom:.4rem;">
+    <div style="font-size:12px;color:#94A3B8;text-align:center;margin-bottom:1.4rem;white-space:nowrap;">≈ <span id="oConMes">600</span> conversaciones al mes</div>
     <button onclick="adv('con')" class="pbtn">Siguiente</button>
     <button onclick="nose('con')" class="nose">No sé la respuesta</button>
   </div>
@@ -101,7 +105,7 @@ button{font-family:'Space Grotesk',sans-serif;}
       <button id="cUSD" onclick="setCur('USD')" style="flex:1;padding:9px;border-radius:8px;border:1px solid #CBD5E1;background:#fff;color:#475569;font-size:13px;cursor:pointer;">Dólares (USD)</button>
     </div>
     <div class="sg" style="text-align:center;font-size:30px;font-weight:800;color:#00203F;line-height:1;margin-bottom:1rem;"><span id="oTk">$1,5M</span></div>
-    <input type="range" id="tk" min="0" max="50000000" step="500000" value="1500000" style="width:100%;margin-bottom:1.5rem;">
+    <input type="range" id="tk" min="0" max="10000000" step="10000" value="1500000" style="width:100%;margin-bottom:1.5rem;">
     <button onclick="adv('tk')" class="pbtn">Siguiente</button>
     <button onclick="nose('tk')" class="nose">No sé la respuesta</button>
   </div>
@@ -120,8 +124,19 @@ button{font-family:'Space Grotesk',sans-serif;}
     <div class="sg" style="text-align:center;font-size:30px;font-weight:800;color:#00203F;line-height:1;margin-bottom:.5rem;"><span id="oAds">$2M</span></div>
     <input type="range" id="ads" min="0" max="50000000" step="500000" value="2000000" style="width:100%;margin-bottom:.4rem;">
     <div style="font-size:12px;color:#94A3B8;margin-bottom:1.5rem;text-align:center;">En <span id="curL">COP</span>. Muévela a 0 si no inviertes.</div>
-    <button onclick="adv('ads')" class="pbtn">Ver mi análisis</button>
-    <button onclick="nose('ads')" class="nose">No sé la respuesta</button>
+    <button onclick="endQuiz(false)" class="pbtn">Ver mi análisis</button>
+    <button onclick="endQuiz(true)" class="nose">No sé la respuesta</button>
+  </div>
+
+  <div id="sAlert" class="qstep" style="display:none;text-align:center;">
+    <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.4);border-radius:16px;padding:30px 22px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 30px rgba(245,158,11,0.2);">
+      <div style="width:72px;height:72px;border-radius:50%;background:rgba(245,158,11,0.16);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+        <svg width="40" height="40" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" fill="#F59E0B"/><line x1="12" y1="9.5" x2="12" y2="13.5" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="#fff"/></svg>
+      </div>
+      <div class="sg" style="font-size:21px;font-weight:800;color:#B45309;line-height:1.25;margin-bottom:12px;">Un apunte importante</div>
+      <p style="font-size:14.5px;color:#92400E;line-height:1.6;margin:0;">Varios de estos números no los tenías del todo claros, y son justo los que muestran si tu proceso comercial está bajo control y los que te permiten tomar mejores decisiones. Vale la pena tenerlos siempre a la mano — es parte de lo que Acris.IA te ayuda a construir.</p>
+    </div>
+    <button onclick="show(10)" class="pbtn" style="margin-top:20px;">Ver mis números →</button>
   </div>
 
   <div id="sForm" class="qstep" style="display:none;">
@@ -137,14 +152,42 @@ button{font-family:'Space Grotesk',sans-serif;}
       <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:13px;"><div id="kCAC" class="sg" style="font-size:20px;font-weight:700;">—</div><div style="font-size:11px;color:#64748B;margin-top:3px;line-height:1.4;">CAC · costo por cliente</div></div>
       <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:13px;"><div id="kHoras" class="sg" style="font-size:20px;font-weight:700;">—</div><div style="font-size:11px;color:#64748B;margin-top:3px;line-height:1.4;">Horas / mes respondiendo</div></div>
     </div>
-    <div style="background:#ECFEFB;border:1px solid #99F0E6;border-radius:10px;padding:13px;text-align:center;margin-bottom:1.75rem;"><span id="kRec" class="sg" style="font-size:20px;font-weight:700;color:#0B5A52;">—</span> <span style="font-size:12px;color:#0B5A52;">clientes que podrías recuperar al mes</span></div>
+    <div style="background:#ECFEFB;border:1px solid #99F0E6;border-radius:10px;padding:13px;text-align:center;margin-bottom:10px;"><span id="kRec" class="sg" style="font-size:20px;font-weight:700;color:#0B5A52;">—</span> <span style="font-size:12px;color:#0B5A52;">clientes que podrías recuperar al mes</span></div>
+    <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.35);border-radius:12px;padding:16px;text-align:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);margin-bottom:1.75rem;">
+      <div class="sg" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6D28D9;font-weight:700;margin-bottom:6px;">Tu seguimiento actual</div>
+      <div class="sg" style="font-size:28px;font-weight:800;color:#6D28D9;line-height:1;"><span id="kProb">+30%</span></div>
+      <div style="font-size:12px;color:#6D28D9;margin-top:5px;line-height:1.4;">más probabilidad de cierre que quien no hace seguimiento</div>
+      <div style="font-size:11px;color:#9CA3AF;margin-top:8px;">Sin seguimiento: 0% · a diario: hasta +50%</div>
+    </div>
 
     <div class="sg" style="font-size:26px;font-weight:800;line-height:1.18;text-align:center;margin-bottom:8px;">¿Quieres el <span style="color:#FF5A3C;">análisis completo</span>?</div>
     <p style="font-size:14px;color:#565E68;line-height:1.6;text-align:center;margin-bottom:20px;">Te enviamos estos números y el detalle de dónde está tu fuga y cómo cerrarla, por WhatsApp.</p>
-    <input id="fNom" placeholder="Nombre completo" class="num" style="margin-bottom:10px;">
-    <input id="fEmp" placeholder="Nombre de la empresa" class="num" style="margin-bottom:10px;">
-    <input id="fCel" placeholder="Celular / WhatsApp" class="num" style="margin-bottom:10px;">
-    <input id="fMail" placeholder="Correo electrónico" class="num" style="margin-bottom:14px;">
+    <input id="fNom" placeholder="Nombre completo" class="num" required style="margin-bottom:10px;">
+    <input id="fEmp" placeholder="Nombre de la empresa" class="num" required style="margin-bottom:10px;">
+    <div style="display:grid;grid-template-columns:112px 1fr;gap:8px;margin-bottom:10px;">
+      <select id="fCountry" class="num" style="padding:13px 6px;">
+        <option value="+57" selected>🇨🇴 +57</option>
+        <option value="+52">🇲🇽 +52</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+54">🇦🇷 +54</option>
+        <option value="+56">🇨🇱 +56</option>
+        <option value="+51">🇵🇪 +51</option>
+        <option value="+593">🇪🇨 +593</option>
+        <option value="+58">🇻🇪 +58</option>
+        <option value="+591">🇧🇴 +591</option>
+        <option value="+595">🇵🇾 +595</option>
+        <option value="+598">🇺🇾 +598</option>
+        <option value="+506">🇨🇷 +506</option>
+        <option value="+507">🇵🇦 +507</option>
+        <option value="+502">🇬🇹 +502</option>
+        <option value="+503">🇸🇻 +503</option>
+        <option value="+504">🇭🇳 +504</option>
+        <option value="+505">🇳🇮 +505</option>
+        <option value="+34">🇪🇸 +34</option>
+      </select>
+      <input id="fCel" type="tel" placeholder="Celular / WhatsApp" class="num" required>
+    </div>
+    <input id="fMail" type="email" placeholder="Correo electrónico" class="num" required style="margin-bottom:14px;">
     <button onclick="enviar()" style="width:100%;padding:16px;border-radius:12px;border:none;background:#36ECDE;color:#00203F;font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">Enviar y recibir mi análisis</button>
     <div id="ok" style="display:none;border-radius:10px;padding:12px;font-size:13px;margin-top:12px;line-height:1.5;"></div>
     <p style="font-size:11px;color:#94A3B8;text-align:center;margin-top:12px;">Sin compromiso. Solo usamos tus datos para enviarte el análisis.</p>
@@ -160,28 +203,31 @@ button{font-family:'Space Grotesk',sans-serif;}
   </div>
 </div>
 <script>
-var A={con:15,resp:3,quien:'Un vendedor',seg:'Semanal',cie:3,tk:1500000,ads:2000000,cur:'COP',plats:[],unclear:{}};
-var steps=['s0','s1','s2','s3','s4','s5','s6','s7','s8','sForm','sR'],step=0;
+var A={con:20,resp:3,quien:'Un vendedor',seg:'Semanal',cie:3,tk:1500000,ads:2000000,cur:'COP',plats:[],unclear:{}};
+var steps=['s0','s1','s2','s3','s4','s5','s6','s7','s8','sAlert','sForm','sR'],step=0;
+var WEBHOOK='https://services.leadconnectorhq.com/hooks/dOdKg7lRbJNOawBVXaBc/webhook-trigger/7fc5dbf4-2f88-40f9-b12a-5a789372af1a';
 function postH(){try{parent.postMessage({acrisCalcHeight:document.body.scrollHeight+8},'*');}catch(e){}}
 function fMoney(v){v=Math.round(v);if(A.cur==='COP'){if(v>=1000000){return '$'+(v/1000000).toFixed(1).replace('.',',')+'M';}return '$'+v.toLocaleString('es-CO');}return '$'+v.toLocaleString('en-US');}
-function fBar(v,mx){v=+v;if(v>=mx)return A.cur==='COP'?'Más de $50 millones':'Más de $20.000';return fMoney(v);}
+function fFull(v){v=Math.round(v);return A.cur==='COP'?'$'+v.toLocaleString('es-CO'):'$'+v.toLocaleString('en-US');}
+function fBar(v,mx){v=+v;if(v>=mx)return '+ '+fFull(mx);return fFull(v);}
 function updTk(){document.getElementById('oTk').textContent=fBar(A.tk,+document.getElementById('tk').max);}
 function updAds(){document.getElementById('oAds').textContent=fBar(A.ads,+document.getElementById('ads').max);}
-function show(i){for(var j=0;j<steps.length;j++){document.getElementById(steps[j]).style.display=j===i?'block':'none';}step=i;var head=document.getElementById('head');head.style.display=(i>0&&i<9)?'block':'none';if(i>0&&i<9){document.getElementById('prog').style.width=(i/8*100)+'%';}if(i===9)renderNumbers();window.scrollTo(0,0);postH();}
+function show(i){for(var j=0;j<steps.length;j++){document.getElementById(steps[j]).style.display=j===i?'block':'none';}step=i;var head=document.getElementById('head');head.style.display=(i>0&&i<9)?'block':'none';if(i>0&&i<9){document.getElementById('prog').style.width=(i/8*100)+'%';}if(i===10)renderNumbers();window.scrollTo(0,0);postH();}
 function next(){if(step<10)show(step+1);}
 function back(){if(step>0)show(step-1);}
 function adv(key){delete A.unclear[key];next();}
 function nose(key){A.unclear[key]=true;next();}
-function reset(){A={con:15,resp:3,quien:'Un vendedor',seg:'Semanal',cie:3,tk:1500000,ads:2000000,cur:'COP',plats:[],unclear:{}};document.getElementById('con').value=15;document.getElementById('cie').value=3;document.getElementById('oCon').textContent='15';document.getElementById('oConMes').textContent='450';document.getElementById('oCie').textContent='3';setCur('COP');var okb=document.getElementById('ok');if(okb)okb.style.display='none';document.getElementById('fNom').value='';document.getElementById('fEmp').value='';document.getElementById('fCel').value='';document.getElementById('fMail').value='';renderPlats();show(0);}
+function endQuiz(unsure){if(unsure){A.unclear['ads']=true;}else{delete A.unclear['ads'];}if(Object.keys(A.unclear).length>3){show(9);}else{show(10);}}
+function reset(){A={con:20,resp:3,quien:'Un vendedor',seg:'Semanal',cie:3,tk:1500000,ads:2000000,cur:'COP',plats:[],unclear:{}};document.getElementById('con').value=20;document.getElementById('cie').value=3;document.getElementById('oCon').textContent='20';document.getElementById('oConMes').textContent='600';document.getElementById('oCie').textContent='3';setCur('COP');var okb=document.getElementById('ok');if(okb)okb.style.display='none';document.getElementById('fNom').value='';document.getElementById('fEmp').value='';document.getElementById('fCel').value='';document.getElementById('fMail').value='';renderPlats();show(0);}
 function opt(container,arr,key){var h='';for(var i=0;i<arr.length;i++){h+='<button class="optbtn" onclick="pick(\''+key+'\',\''+arr[i].v+'\')" style="width:100%;text-align:left;padding:15px 16px;border-radius:10px;border:1px solid #E2E8F0;background:#fff;color:#00203F;font-size:15px;font-family:\'Inter\',sans-serif;cursor:pointer;margin-bottom:10px;transition:.15s;">'+arr[i].t+'</button>';}document.getElementById(container).innerHTML=h;}
 function pick(key,val){A[key]=key==='resp'?+val:val;delete A.unclear[key];next();}
 function togglePlat(p){var i=A.plats.indexOf(p);if(p==='No hago pauta'){A.plats=['No hago pauta'];}else{var k=A.plats.indexOf('No hago pauta');if(k>-1)A.plats.splice(k,1);if(i>-1)A.plats.splice(A.plats.indexOf(p),1);else A.plats.push(p);}delete A.unclear['plats'];renderPlats();}
-function renderPlats(){var list=['Meta (Facebook e Instagram)','Google Ads','TikTok Ads','LinkedIn Ads','Otra','No hago pauta'];var h='';for(var i=0;i<list.length;i++){var on=A.plats.indexOf(list[i])>-1?' on':'';h+='<button class="plat'+on+'" onclick="togglePlat(\''+list[i]+'\')" style="width:100%;text-align:left;padding:13px 16px;border-radius:10px;border:1px solid #E2E8F0;background:#fff;color:#00203F;font-size:14px;font-family:\'Inter\',sans-serif;cursor:pointer;margin-bottom:9px;transition:.15s;">'+list[i]+'</button>';}document.getElementById('optPlat').innerHTML=h;}
-function setCur(c){A.cur=c;var cop=document.getElementById('cCOP'),usd=document.getElementById('cUSD');var on='flex:1;padding:9px;border-radius:8px;border:none;background:#00203F;color:#fff;font-size:13px;font-weight:500;cursor:pointer;',off='flex:1;padding:9px;border-radius:8px;border:1px solid #CBD5E1;background:#fff;color:#475569;font-size:13px;cursor:pointer;';cop.style.cssText=c==='COP'?on:off;usd.style.cssText=c==='USD'?on:off;var cl=document.getElementById('curL');if(cl)cl.textContent=c;var tk=document.getElementById('tk'),ads=document.getElementById('ads');if(c==='USD'){tk.max=20000;tk.step=100;tk.value=400;ads.max=20000;ads.step=100;ads.value=600;}else{tk.max=50000000;tk.step=500000;tk.value=1500000;ads.max=50000000;ads.step=500000;ads.value=2000000;}A.tk=+tk.value;A.ads=+ads.value;updTk();updAds();}
-function computeStats(){A.tk=+document.getElementById('tk').value||0;A.ads=+document.getElementById('ads').value||0;var conv=A.con*30,clientesHoy=conv*(A.cie/100),recuperables=clientesHoy*0.15,centro=recuperables*A.tk;A.stats={conv:conv,clientesHoy:Math.round(clientesHoy),ingresoHoy:Math.round(clientesHoy*A.tk),horas:Math.round(conv*5/60),recuperables:Math.round(recuperables),perdidaMin:Math.round(centro*0.75),perdidaMax:Math.round(centro*1.25),perdidaAnual:Math.round(centro*12),cac:(A.ads>0&&clientesHoy>0)?Math.round(A.ads/clientesHoy):0};}
-function renderNumbers(){computeStats();var s=A.stats;var noPauta=A.plats.indexOf('No hago pauta')>-1||A.ads<=0;document.getElementById('rMes').textContent=fMoney(s.perdidaMin)+' – '+fMoney(s.perdidaMax);document.getElementById('rAnual').textContent='≈ '+fMoney(s.perdidaAnual)+' al año';document.getElementById('kConv').textContent=s.conv.toLocaleString('es-CO');document.getElementById('kClientes').textContent=s.clientesHoy.toLocaleString('es-CO');document.getElementById('kCAC').textContent=noPauta?'—':fMoney(s.cac);document.getElementById('kHoras').textContent=s.horas+' h';document.getElementById('kRec').textContent='+'+s.recuperables.toLocaleString('es-CO');postH();}
-function enviar(){var n=document.getElementById('fNom').value,e=document.getElementById('fEmp').value,c=document.getElementById('fCel').value,m=document.getElementById('fMail').value,ok=document.getElementById('ok');if(!n||!e||!c||!m){ok.style.display='block';ok.style.background='#FEF3C7';ok.style.color='#92400E';ok.textContent='Completa nombre, empresa, celular y correo.';postH();return;}A.nom=n;A.emp=e;A.cel=c;A.mail=m;computeStats();document.getElementById('thanksTitle').textContent='¡Listo, '+n+'!';show(10);}
-document.getElementById('con').addEventListener('input',function(){A.con=+this.value;document.getElementById('oCon').textContent=this.value;document.getElementById('oConMes').textContent=(this.value*30).toLocaleString('es-CO');});
+function renderPlats(){var list=['Meta (Facebook e Instagram)','Google Ads','TikTok Ads','LinkedIn Ads','Otra','No hago pauta'];var h='';for(var i=0;i<list.length;i++){var on=A.plats.indexOf(list[i])>-1?' on':'';h+='<button class="plat'+on+'" onclick="togglePlat(\''+list[i]+'\')" style="width:100%;text-align:left;padding:11px 16px;border-radius:10px;border:1px solid #E2E8F0;background:#fff;color:#00203F;font-size:14px;font-family:\'Inter\',sans-serif;cursor:pointer;margin-bottom:8px;transition:.15s;">'+list[i]+'</button>';}document.getElementById('optPlat').innerHTML=h;}
+function setCur(c){A.cur=c;var cop=document.getElementById('cCOP'),usd=document.getElementById('cUSD');var on='flex:1;padding:9px;border-radius:8px;border:none;background:#00203F;color:#fff;font-size:13px;font-weight:500;cursor:pointer;',off='flex:1;padding:9px;border-radius:8px;border:1px solid #CBD5E1;background:#fff;color:#475569;font-size:13px;cursor:pointer;';cop.style.cssText=c==='COP'?on:off;usd.style.cssText=c==='USD'?on:off;var cl=document.getElementById('curL');if(cl)cl.textContent=c;var tk=document.getElementById('tk'),ads=document.getElementById('ads');if(c==='USD'){tk.max=20000;tk.step=100;tk.value=400;ads.max=20000;ads.step=100;ads.value=600;}else{tk.max=10000000;tk.step=10000;tk.value=1500000;ads.max=50000000;ads.step=500000;ads.value=2000000;}A.tk=+tk.value;A.ads=+ads.value;updTk();updAds();}
+function computeStats(){A.tk=+document.getElementById('tk').value||0;A.ads=+document.getElementById('ads').value||0;var conv=A.con*30,clientesHoy=conv*(A.cie/100),recuperables=clientesHoy*0.15,centro=recuperables*A.tk;A.stats={conv:conv,clientesHoy:Math.round(clientesHoy),ingresoHoy:Math.round(clientesHoy*A.tk),horas:Math.round(conv*5*1.2/60),recuperables:Math.round(recuperables),perdidaMin:Math.round(centro*0.75),perdidaMax:Math.round(centro*1.25),perdidaAnual:Math.round(centro*12),cac:(A.ads>0&&clientesHoy>0)?Math.round(A.ads/clientesHoy):0};}
+function renderNumbers(){computeStats();var s=A.stats;var noPauta=A.plats.indexOf('No hago pauta')>-1||A.ads<=0;document.getElementById('rMes').textContent=fMoney(s.perdidaMin)+' – '+fMoney(s.perdidaMax);document.getElementById('rAnual').textContent='≈ '+fMoney(s.perdidaAnual)+' al año';document.getElementById('kConv').textContent=s.conv.toLocaleString('es-CO');document.getElementById('kClientes').textContent=s.clientesHoy.toLocaleString('es-CO');document.getElementById('kCAC').textContent=noPauta?'—':fMoney(s.cac);document.getElementById('kHoras').textContent=s.horas+' h';document.getElementById('kRec').textContent='+'+s.recuperables.toLocaleString('es-CO');var probMap={'Diario':50,'Semanal':30,'Mensual':15,'Casi no hago':5,'No hago':0};var prob=(probMap[A.seg]!==undefined)?probMap[A.seg]:0;document.getElementById('kProb').textContent='+'+prob+'%';postH();}
+function enviar(){var n=document.getElementById('fNom').value,e=document.getElementById('fEmp').value,c=document.getElementById('fCel').value,m=document.getElementById('fMail').value,ok=document.getElementById('ok');['fNom','fEmp','fCel','fMail'].forEach(function(id){document.getElementById(id).style.borderColor='#CBD5E1';});var msg='';if(!n.trim()||!e.trim()||!c.trim()||!m.trim()){[['fNom',n],['fEmp',e],['fCel',c],['fMail',m]].forEach(function(f){if(!(''+f[1]).trim())document.getElementById(f[0]).style.borderColor='#EF4444';});msg='Completa todos los campos: nombre, empresa, celular y correo.';}else if(!/.+@.+\..+/.test(m)){document.getElementById('fMail').style.borderColor='#EF4444';msg='Ingresa un correo válido.';}if(msg){ok.style.display='block';ok.style.background='#FEF3C7';ok.style.color='#92400E';ok.textContent=msg;postH();return;}A.nom=n;A.emp=e;A.cel=c;A.mail=m;var tel=(document.getElementById('fCountry').value||'')+((c||'').replace(/\D/g,''));computeStats();var s=A.stats;var probMap={'Diario':50,'Semanal':30,'Mensual':15,'Casi no hago':5,'No hago':0};var prob=(probMap[A.seg]!==undefined)?probMap[A.seg]:0;var tiempos={1:'En minutos',2:'Menos de una hora',3:'Varias horas después',4:'Al día siguiente o más',5:'A veces no alcanzo'};var data={nombre:n,empresa:e,celular:tel,phone:tel,email:m,source:'Test Acris.IA - Empresas',moneda:A.cur,calc_conv_dia:A.con,calc_conversaciones_mes:s.conv,calc_tiempo_respuesta:tiempos[A.resp]||'',calc_quien_atiende:A.quien,calc_seguimiento:A.seg,calc_prob_cierre:prob+'%',calc_conversion_de_100:A.cie,calc_clientes_mes:s.clientesHoy,calc_ticket:A.tk,calc_inversion_ads:A.ads,calc_plataformas:(A.plats||[]).join(', '),calc_ingreso_mes:s.ingresoHoy,calc_cac:s.cac,calc_horas_mes:s.horas,calc_recuperables_mes:s.recuperables,calc_perdida_min:s.perdidaMin,calc_perdida_max:s.perdidaMax,calc_perdida_anual:s.perdidaAnual,calc_perdida_rango:fMoney(s.perdidaMin)+' - '+fMoney(s.perdidaMax),calc_no_se:Object.keys(A.unclear).length};try{fetch(WEBHOOK,{method:'POST',body:new URLSearchParams(data)});}catch(err){}document.getElementById('thanksTitle').textContent='¡Listo, '+n+'!';show(11);}
+document.getElementById('con').addEventListener('input',function(){A.con=+this.value;var mx=+this.max;document.getElementById('oCon').textContent=(+this.value>=mx)?'+100':this.value;document.getElementById('oConMes').textContent=((+this.value)*30).toLocaleString('es-CO');});
 document.getElementById('cie').addEventListener('input',function(){A.cie=+this.value;document.getElementById('oCie').textContent=this.value;});
 document.getElementById('tk').addEventListener('input',function(){A.tk=+this.value;updTk();});
 document.getElementById('ads').addEventListener('input',function(){A.ads=+this.value;updAds();});
